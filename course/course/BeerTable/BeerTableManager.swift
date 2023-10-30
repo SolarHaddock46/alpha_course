@@ -1,12 +1,12 @@
 import UIKit
 import Foundation
 
-final class BeerTableManager {
+final class BeerTableManager: NSObject {
     var beerData: [BeerDTO] = []
     
 }
 
-extension BeerTableManager: UITableView {
+extension BeerTableManager: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return beerData.count
     }
