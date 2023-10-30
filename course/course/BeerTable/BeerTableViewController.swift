@@ -1,4 +1,5 @@
 import UIKit
+import Foundation
 
 final class BeerTableViewController: UIViewController {
     
@@ -7,7 +8,19 @@ final class BeerTableViewController: UIViewController {
         return view
     }()
     
-    private let service = BeerService()
+    private var service: BeerServicing
+//    func setService(service: BeerService) {
+//        self.service = service
+//    }
+    init(service: BeerServicing) {
+        self.service = service
+        super.init(nibName: nil, bundle: nil)
+
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func loadView() {
         view = contentView
@@ -17,7 +30,7 @@ final class BeerTableViewController: UIViewController {
         super.viewDidLoad()
         service.fetchBeer { beers in
             DispatchQueue.main.async {
-                contentView.configure(with: beers)
+                self.contentView.configure(with: beers)
             }
         }
     }

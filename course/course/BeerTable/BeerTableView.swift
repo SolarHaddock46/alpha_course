@@ -1,9 +1,10 @@
 import UIKit
+import Foundation
 
 final class BeerTableView: UIView {
     private lazy var tableView: UITableView = {
         let tableView = UITableView()
-        tableview.dataSource = tableManager
+        tableView.dataSource = tableManager as! any UITableViewDataSource
         return tableView
     }()
     
@@ -21,7 +22,7 @@ final class BeerTableView: UIView {
     }
     
     func configure(with viewModel: [BeerDTO]) {
-        tableManager.tableData = viewModel
+        tableManager.beerData = viewModel
         tableView.reloadData()
     }
     
