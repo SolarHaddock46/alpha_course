@@ -1,10 +1,14 @@
 import UIKit
+import Foundation
 
 final class BeerTableView: UIView {
     private lazy var tableView: UITableView = {
         let tableView = UITableView()
+        tableView.dataSource = tableManager as! any UITableViewDataSource
         return tableView
     }()
+    
+    private lazy var tableManager = BeerTableManager()
     
     init() {
         super.init(frame: .zero)
@@ -15,6 +19,11 @@ final class BeerTableView: UIView {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func configure(with viewModel: [BeerDTO]) {
+        tableManager.beerData = viewModel
+        tableView.reloadData()
     }
     
 }
