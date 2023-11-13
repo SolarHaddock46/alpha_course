@@ -1,14 +1,20 @@
 import UIKit
 import Foundation
 
+protocol BeerTableViewDelegate {
+    func didSelectRow(_ beerModel: BeerDTO)
+}
+
 final class BeerTableView: UIView {
     private lazy var tableView: UITableView = {
         let tableView = UITableView()
-        tableView.dataSource = tableManager as! any UITableViewDataSource
+        tableView.dataSource = tableManager
+        tableView.delegate = tableManager
         return tableView
     }()
     
     private lazy var tableManager = BeerTableManager()
+    var delegate: BeerTableViewDelegate?
     
     init() {
         super.init(frame: .zero)
@@ -27,6 +33,14 @@ final class BeerTableView: UIView {
     }
     
 }
+
+extension BeerTableView: BeerTableManagerDelegate {
+    func didSelectRow(_ beerModel: BeerDTO) {
+        delegate?.didSelectRow(beerModel)
+    }
+
+}
+
 
 private extension BeerTableView {
     func addSubviews() {
