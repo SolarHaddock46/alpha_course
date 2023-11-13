@@ -1,7 +1,15 @@
 import UIKit
 import Foundation
 
+
+// MARK: - BeerTableManagerDelegate
+
+protocol BeerTableManagerDelegate {
+    func didSelectRow(_ beerModel: BeerDTO)
+}
+
 final class BeerTableManager: NSObject {
+    var delegate: BeerTableManagerDelegate?
     var beerData: [BeerDTO] = []
     
 }
@@ -20,6 +28,13 @@ extension BeerTableManager: UITableViewDataSource {
         configuration.secondaryText = beer.tagline
         cell.contentConfiguration = configuration
         return cell
+    }
+}
+
+extension BeerTableManager: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        delegate?.didSelectRow(beerData[indexPath.row])
     }
 }
 
