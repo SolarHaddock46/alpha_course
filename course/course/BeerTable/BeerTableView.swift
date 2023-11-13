@@ -21,6 +21,7 @@ final class BeerTableView: UIView {
         self.backgroundColor = .white
         addSubviews()
         makeConstraints()
+        tableManager.delegate = self
     }
     
     required init?(coder: NSCoder) {
